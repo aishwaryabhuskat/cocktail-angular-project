@@ -1,0 +1,44 @@
+<!-- cocktail list code -->
+<div>
+    <h5>Filters</h5>
+    <br>
+    <!-- cocktai name label for filter -->
+    <div class="form-floating mb-3">
+        <input type="text" [formControl]="searchControl" class="form-control card-text border-style" id="floatingInput" placeholder=" ">
+        <label for="floatingInput" class="card-text">Cocktail name</label>
+
+    </div>
+    <br>
+</div>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+      <!-- looping cocktail details -->
+<ng-container *ngFor="let cocktail of cocktailList">
+    <div class="col">
+        <div class="card mb-3" style="max-width: 540px;  display: flex; flex-direction: row;"> 
+            <div class="col-md-4">
+                <img src="{{cocktail.imageUrl}}" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body" style="margin-top:-25px ;">
+                    <a style="color: black;" [routerLink]="['cocktails', cocktail.id]"><h5 class="card-title">{{cocktail.name}}</h5></a>
+                    <span class="icon-star" [attr.id]="'star-' + cocktail.id" [class.active]="isFavoriteCocktail(cocktail.id)"
+                        (click)="markFavorite(cocktail.id)"
+                    ></span>
+                    <br>
+                       <!-- tag whether alcoholic or not -->
+                       <span class="badge rounded-pill {{cocktail.isAlcoholic ? 'text-bg-success' : 'text-bg-secondary'}}">{{cocktail.isAlcoholic ? "Alcoholic" : "Non alcoholic"}}</span>
+                       <!-- ingredient list -->
+                    <ul>
+                        <li class="card-text" *ngFor="let ing of cocktail.ingredients">
+                            {{ing}}
+                        </li>
+                    </ul>
+                 
+                </div>
+            </div>
+            </div>
+    </div>
+</ng-container>
+</div>
+
+
